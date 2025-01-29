@@ -6,7 +6,8 @@
 <br>
 
 <img src="https://github.com/Mhadi-1382/blue-warehousing-system/blob/main/static/images/logo/blue_logo_icon.svg" alt="blue warehousing system" width="80">
-Blue warehousing system
+
+This Blue Warehousing System is designed to optimize inventory management and facilitate warehousing-related processes. It allows users to easily control inventory, register goods, and receive detailed reports on warehouse status.
 
 <br>
 <br>
