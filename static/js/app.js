@@ -3,7 +3,7 @@
  * BLUE (Warehousing System) Template
  * Created on date: 1403/06/20
  *
- * View source code on GitHub: https://github.com/Mhadi-1382/
+ * View source code on GitHub: https://github.com/Mhadi-1382/blue-warehousing-system/
 */
 
 // Navbar
