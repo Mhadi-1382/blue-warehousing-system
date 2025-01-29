@@ -1,0 +1,117 @@
+
+{% extends 'includes/_base.html' %}
+{% block title %}ویرایش محصول خرید شده ({{ curReadProducts[0][0] }}# {{ curReadProducts[0][1] }}) — بلو{% endblock title %}
+
+{% block body %}
+    {% include 'includes/_alerts.html' %}
+    
+    <div class="container">
+        {% include 'includes/_aside_right.html' %}
+        
+        <aside class="aside-left">
+            {% include 'includes/_navbar.html' %}
+        
+            <div class="aside-left-container">
+                <div class="aside-left-container-header">
+                    <div>
+                        <h2>ویرایش محصول ({{ curReadProducts[0][0] }}#)</h2>
+                        <p>در این صفحه می توانید محصول خرید شده خود را ویرایش کنید.</p>
+                    </div>
+                    <div>
+                        <a href="/products/"><li class="far fa-undo"></li> برگشت</a>
+                    </div>
+                </div>
+                <div class="aside-left-container-body" style="background-color: white; border-radius: 1rem; padding: 1.2rem;">
+                    {% for ReadProducts in curReadProducts %}
+                        <form action="/products/edit/{{ ReadProducts[0] }}/" method="post" class="form-control">
+                            <div class="form-control-group">
+                                <div>
+                                    <label for="productName">نام کالا *</label>
+                                    <input type="text" name="productName" id="productName" required maxlength="500" value="{{ ReadProducts[1] }}">
+                                </div>
+                                <div>
+                                    <label for="productNumber">تعداد کالا *</label>
+                                    <input type="number" name="productNumber" id="productNumber" required min="0" value="{{ ReadProducts[2] }}">
+                                </div>
+                                <div>
+                                    <label for="productCategory">دسته بندی</label>
+                                    <input list="productCategoryList" name="productCategory" id="productCategory" maxlength="300" value="{{ ReadProducts[3] }}">
+                                    <datalist id="productCategoryList">
+                                        {% for ReadProductCategory in curReadProductsCategory %}
+                                            <option value="{{ ReadProductCategory[0] }}"></option>
+                                        {% endfor %}
+                                    </datalist>
+                                </div>
+                            </div>
+
+                            <div class="form-control-group">
+                                <div>
+                                    <label for="productPurchasePrice">قیمت خرید (ریال) *</label>
+                                    <input type="number" name="productPurchasePrice" id="productPurchasePrice" required min="0" value="{{ ReadProducts[4] }}">
+                                </div>
+                                <div>
+                                    <label for="productDiscount">تخفیف (درصد)</label>
+                                    <input type="number" name="productDiscount" id="productDiscount" max="100" min="0" value="{{ ReadProducts[6] }}">
+                                </div>
+                            </div>
+
+                            <div class="">
+                                <label for="productDescription">توضیحات</label>
+                                <textarea name="productDescription" id="productDescription" rows="3">{{ ReadProducts[7] }}</textarea>
+                            </div>
+                            <div>
+                                <label for="productDate">تاریخ</label>
+                                <input type="text" name="productDate" id="productDate" maxlength="19" dir="ltr" value="{{ ReadProducts[8] }}">
+                            </div>
+
+                            <div class="form-control-result">
+                                <h3>جزییات نهایی</h3>
+                                
+                                <li>قیمت کل: <input type="hidden" name="productTotalPrice" id="productTotalPriceInput" style="all: unset;" value="{{ ReadProducts[5] }}"> <span id="productTotalPrice">{{ ReadProducts[5] }} ریال</span></li>
+                                <li>تعداد: <span id="productTotalNumber">{{ ReadProducts[2] }} عدد</span></li>
+                                <li>تخفیف: <span id="productDiscountApply">{{ ReadProducts[6] }} درصد</span></li>
+                            </div>
+                            
+                            <input type="submit" value="ویرایش و ثبت" aria-placeholder="ویرایش و ثبت" style="width: 130px; margin-top: 10px;">
+                        </form>
+                    {% endfor %}
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        let productPurchasePrice = document.getElementById("productPurchasePrice");
+        let productNumber = document.getElementById("productNumber");
+        let productDiscount = document.getElementById("productDiscount");
+        let productTotalPrice = document.getElementById("productTotalPrice");
+        let productTotalNumber = document.getElementById("productTotalNumber");
+        let productTotalPriceInput = document.getElementById("productTotalPriceInput");
+        let productDiscountApply = document.getElementById("productDiscountApply");
+
+        function calcTotalPrice() {
+            productTotalNumber.innerHTML = productNumber.value + " <span style='font-size: 13px'>عدد</span>";
+            productDiscountApply.innerHTML = productDiscount.value + " <span style='font-size: 13px'>درصد</span>";
+
+            if (productNumber.value >= 1) {
+                let calc = (productPurchasePrice.value * productNumber.value) - (productTotalPriceInput.value * productDiscount.value / 100);
+                productTotalPrice.innerHTML = calc + " <span style='font-size: 13px'>ریال</span>";
+                productTotalPriceInput.value = calc;
+            } else if (productNumber.value == 0) {
+                productTotalPrice.innerHTML = 0;
+            } else {
+                productTotalPrice.innerHTML = productPurchasePrice.value + " <span style='font-size: 13px'>ریال</span>";
+                productTotalPriceInput.value = productPurchasePrice.value;
+            }
+        }
+        productPurchasePrice.onchange = function() {
+            calcTotalPrice();
+        }
+        productNumber.onchange = function() {
+            calcTotalPrice();
+        }
+        productDiscount.onchange = function() {
+            calcTotalPrice();
+        }
+    </script>
+{% endblock body %}

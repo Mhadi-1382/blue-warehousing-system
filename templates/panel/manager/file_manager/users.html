@@ -1,0 +1,42 @@
+
+{% extends 'includes/_base.html' %}
+{% block title %} مدیریت اطلاعات (کاربران) — بلو{% endblock title %}
+
+{% block body %}
+    {% include 'includes/_status_auth.html' %}
+    
+    <div class="" style="margin: 20px 0;">
+        <div class="table-wrapper">
+            <table class="alt">
+                <thead>
+                    <tr>
+                        <th>ردیف</th>
+                        <th>نام و نام خانوادگی</th>
+                        <th>ایمیل</th>
+                        <th>تلفن</th>
+                        <th>رمز عبور</th>
+                        <th>تاریخ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for users in readUsers %}
+                        <tr>
+                            <td>{{ users[0] }}</td>
+                            <td>{{ users[1] }}</td>
+                            <td>{{ users[2] }}</td>
+                            <td>{{ users[3] }}</td>
+                            <td>{{ users[4] }}</td>
+                            <td>{{ users[5] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script>
+        setTimeout(() => {
+            window.print();
+        }, 1500);
+    </script>
+{% endblock body %}

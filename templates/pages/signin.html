@@ -1,0 +1,23 @@
+
+{% extends 'includes/_base.html' %}
+{% block title %}ورود به پنل — بلو{% endblock title %}
+{% block description %}{% endblock description %}
+{% block keywords %}{% endblock keywords %}
+
+{% block body %}
+    {% include 'includes/_alerts.html' %}
+
+    <div class="container-single">
+        <form action="/signin/" method="post" class="form-control-signin">
+            <div>
+                <a href="/"><img src="{{ url_for('static', filename='images/logo/blue_logo_icon.svg') }}" alt="blue logo" style="width: 45px;" draggable="false"></a>
+                <h1>ورود به پنل</h1>
+                <p>لطفا اطلاعات خود را وارد کنید.</p>
+            </div>
+
+            <input type="email" name="email" placeholder="ایمیل" aria-placeholder="ایمیل" required>
+            <input type="password" name="password" placeholder="رمز عبور" aria-placeholder="رمز عبور">
+            <input type="submit" id="inputSubmit" value="ورود" aria-placeholder="ورود">
+        </form>
+    </div>
+{% endblock body %}

@@ -1,0 +1,21 @@
+
+.link {
+    text-decoration: underline;
+
+    &.blue {
+        color: var(--background-btn-primary);
+    }
+    &.red {
+        color: var(--color-red);
+    }
+    &.green {
+        color: var(--color-green);
+    }
+    &.yellow {
+        color: var(--color-yellow);
+    }
+    &:hover {
+        transition: var(--transition-2s-ease);
+        color: var(--color-black);
+    }
+}

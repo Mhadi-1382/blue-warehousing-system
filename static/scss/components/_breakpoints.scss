@@ -1,0 +1,160 @@
+
+@media (min-width: 1350px) {
+    .table-container {
+        transition: var(--transition-2s-ease);
+        width: 100%;
+
+        .table-header,
+        .table-body {
+            transition: var(--transition-2s-ease);
+            width: 100%;
+        }
+    }
+}
+
+@media (min-width: 800px) {
+    aside.aside-left {
+        transition: var(--transition-2s-ease);
+        padding: 1.2rem 1.6rem;
+
+        .navbar {
+            transition: var(--transition-2s-ease);
+            display: none;
+        }
+    }
+}
+@media (max-width: 799px) {
+    .aside-right-overlay {
+        transition: var(--transition-2s-ease);
+        background-color: rgba(0, 0, 0, .6);
+        position: fixed;
+        display: none;
+        z-index: 9998;
+        height: 100%;
+        width: 100%;
+        inset: 0;
+
+        .aside-right {
+            animation: a-push-left 0.2s ease-in;
+            width: 80% !important;
+            z-index: 10000;
+        }
+        #asideRightOverlayNavbar {
+            position: fixed;
+            cursor: pointer;
+            inset: 0;
+        }
+    }
+    
+    aside.aside-left {
+        transition: var(--transition-2s-ease);
+        width: 100%;
+
+        .aside-left-container {
+            transition: var(--transition-2s-ease);
+            margin-top: 60px;
+            
+            .aside-left-container-header {
+                transition: var(--transition-2s-ease);
+                margin-top: 70px;
+            }
+            .aside-left-container-body {
+                .aside-left-container-body-grid {
+                    transition: var(--transition-2s-ease);
+                    flex-wrap: wrap;
+                }
+                .aside-left-container-body-quick-access .aside-left-container-body-quick-access-card {
+                    transition: var(--transition-2s-ease);
+                    width: 75px;
+                }
+                .aside-left-container-body-quick-access,
+                .aside-left-container-body-file-manager-grid,
+                .aside-left-container-body-settings-container {
+                    transition: var(--transition-2s-ease);
+                    flex-wrap: wrap;
+                }
+                .aside-left-container-body-settings-container .aside-left-container-body-settings-container-right {
+                    transition: var(--transition-2s-ease);
+                    width: 100%;
+                }
+                .aside-left-container-body-reports-card ::-webkit-scrollbar {
+                    display: none !important;
+                }
+            }
+        }
+    }
+    
+    .modal-overlay {
+        .modal {
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+            transition: var(--transition-2s-ease);
+            inset: unset;
+            width: 100%;
+            bottom: 0;
+            right: 0;
+            left: 0;
+        }
+        .modal-space {
+            transition: var(--transition-2s-ease);
+            inset: unset;
+            bottom: 1.2rem;
+            width: 92.55%;
+            right: 0;
+            left: 0;
+        }
+    }
+    
+    .form-control-signin {
+        transition: var(--transition-2s-ease);
+        width: 95%;
+    }
+    
+    .alert-container {
+        .alert {
+            transition: var(--transition-2s-ease);
+            padding: 0.8rem 1.2rem;
+            font-size: var(--font-size-14);
+        }
+    }
+}
+@media (max-width: 400px) {
+    .alert-container {
+        .alert {
+            transition: var(--transition-2s-ease);
+            border-radius: 1rem;
+        }
+    }
+    
+    .form-control {
+        .form-control-group {
+            transition: var(--transition-2s-ease);
+            flex-wrap: wrap;
+        }
+    }
+}
+
+@page {
+    margin: 0;
+}
+@media print {
+    .aside-right,
+    .aside-left-container-header p,
+    .aside-left-container-header a,
+    .navbar,
+    .table-header-tool,
+    .modal-right-products-custome .modal-header span.far,
+    .modal-right-products-custome .modal-line,
+    .modal-right-products-custome .modal-footer,
+    .far {
+        display: none !important;
+    }
+    .aside-left {
+        width: 100% !important;
+    }
+    .table-header,
+    .table-body,
+    .modal-right-products-custome {
+        width: 100% !important;
+    }
+}

@@ -1,0 +1,115 @@
+
+<aside class="aside-left">
+    {% include 'includes/_navbar.html' %}
+
+    <div class="aside-left-container">
+        <div class="aside-left-container-header">
+            <div>
+                <h2>سیستم انبارداری بلو</h2>
+                <p>کاربر سیستم: {{ session["username"] }}</p>
+            </div>
+        </div>
+        <div class="aside-left-container-body">
+            <h3>دسترسی سریع</h3>
+            <div class="aside-left-container-body-quick-access">
+                <a href="/products/add/">
+                    <div class="aside-left-container-body-quick-access-card">
+                        <img src="{{ url_for('static', filename='images/icons/CommodityServant.svg') }}" alt="">
+                        <p>ثبت محصول</p>
+                    </div>
+                </a>
+                <a href="/products/">
+                    <div class="aside-left-container-body-quick-access-card">
+                        <img src="{{ url_for('static', filename='images/icons/CommodityServant.svg') }}" alt="">
+                        <p>محصولات</p>
+                    </div>
+                </a>
+                <a href="/reports/">
+                    <div class="aside-left-container-body-quick-access-card">
+                        <img src="{{ url_for('static', filename='images/icons/Reports.svg') }}" alt="">
+                        <p>گزارشات</p>
+                    </div>
+                </a>
+                <a href="/user_manager/">
+                    <div class="aside-left-container-body-quick-access-card">
+                        <span class="far fa-user-cog"></span>
+                        <p>مدیریت کاربران</p>
+                    </div>
+                </a>
+                <a href="/file_manager/">
+                    <div class="aside-left-container-body-quick-access-card">
+                        <img src="{{ url_for('static', filename='images/icons/Filemanager.svg') }}" alt="">
+                        <p>مدیریت اطلاعات</p>
+                    </div>
+                </a>
+                <a href="/settings/">
+                    <div class="aside-left-container-body-quick-access-card">
+                        <img src="{{ url_for('static', filename='images/icons/Settings.svg') }}" alt="">
+                        <p>تنظیمات</p>
+                    </div>
+                </a>
+                <!-- <a href="/support/">
+                    <div class="aside-left-container-body-quick-access-card">
+                        <img src="{{ url_for('static', filename='images/icons/Support.svg') }}" alt="">
+                        <p>پشتیبانی</p>
+                    </div>
+                </a> -->
+            </div>
+
+            <div class="aside-left-container-body-grid">
+                <div class="aside-left-container-body-reports-card" style="width: 100%; height: 100%;">
+                    <details open>
+                        <summary><h3>گزارش خرید</h3> <span class="far fa-sort-desc"></span></summary>
+    
+                        <ul class="aside-left-container-body-reports-card-header">
+                            <li>نوع صورت</li>
+                            <li>مبلغ (ریال)</li>
+                        </ul>
+                        <div style="overflow: hidden; overflow-y: auto; max-height: 300px;">
+                            {% if curReadProducts | length >= 1 %}
+                                {% for readProducts in curReadProducts %}
+                                    <ul class="aside-left-container-body-reports-card-body red">
+                                        <li>{{ readProducts[1] }}</li>
+                                        <li>{{ readProducts[5] }} <span style="font-size: 14px;">ریال</span></li>
+                                    </ul>
+                                {% endfor %}
+                                <ul class="aside-left-container-body-reports-card-footer" style="position: sticky; bottom: 0; background-color: #fff;">
+                                    <li>مجموع</li>
+                                    <li>{{ sumTotalPrice | sum }} <span style="font-size: 14px;">ریال</span></li>
+                                </ul>
+                            {% else %}
+                                <p style="padding: 1rem;">موردی ثبت نشده است.</p>
+                            {% endif %}
+                        </div>
+                    </details>
+                </div>
+                <div class="aside-left-container-body-reports-card" style="width: 100%; height: 100%;">
+                    <details open>
+                        <summary><h3>گزارش فروش</h3> <span class="far fa-sort-desc"></span></summary>
+    
+                        <ul class="aside-left-container-body-reports-card-header">
+                            <li>نوع صورت</li>
+                            <li>مبلغ (ریال)</li>
+                        </ul>
+                        <div style="overflow: hidden; overflow-y: auto; max-height: 300px;">
+                            {% if curReadProductsSale | length >= 1 %}
+                                {% for readProducts in curReadProductsSale %}
+                                    <ul class="aside-left-container-body-reports-card-body blue">
+                                        <li>{{ readProducts[2] }}</li>
+                                        <li>{{ readProducts[5] }} <span style="font-size: 14px;">ریال</span></li>
+                                    </ul>
+                                {% endfor %}
+                                <ul class="aside-left-container-body-reports-card-footer" style="position: sticky; bottom: 0; background-color: #fff;">
+                                    <li>مجموع</li>
+                                    <li>{{ sumTotalPriceSale | sum }} <span style="font-size: 14px;">ریال</span></li>
+                                </ul>
+                            {% else %}
+                                <p style="padding: 1rem;">موردی ثبت نشده است.</p>
+                            {% endif %}
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>

@@ -1,0 +1,21 @@
+
+@keyframes a-push-top {
+    0% {
+        transform: translateY(150px);
+    }
+}
+@keyframes a-push-bottom {
+    0% {
+        transform: translateY(-150px);
+    }
+}
+@keyframes a-push-left {
+    0% {
+        transform: translateX(150px);
+    }
+}
+@keyframes a-push-right {
+    0% {
+        transform: translateX(-150px);
+    }
+}

@@ -1,0 +1,40 @@
+
+@mixin display-center() {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+@mixin display-align-center() {
+    display: flex;
+    align-items: center;
+}
+@mixin display-between() {
+    display: flex;
+    justify-content: space-between;
+}
+
+@mixin h-full-w-custome($w) {
+    width: $w;
+    height: 100vh;
+}
+
+@mixin overflow-auto-y() {
+    overflow: hidden;
+    overflow-y: auto;
+}
+@mixin overflow-auto-x() {
+    overflow: hidden;
+    overflow-x: auto;
+}
+
+@mixin padding-default() {
+    padding: 1.2rem;
+}
+
+@mixin text-hide() {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="FA-IR" dir="rtl">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="{% block description %}{% endblock description %}">
+        <meta name="keywords" content="{% block keywords %}{% endblock keywords %}">
+        <meta name="theme-color" content="#fff">
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='fonts/css/all.min.css') }}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo/blue_logo_icon.svg') }}" type="image/x-icon">
+
+        <title>{% block title %}{% endblock title %}</title>
+    </head>
+    <body>
+        <main>
+            {% block body %}{% endblock body %}
+        </main>
+        
+
+        <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    </body>
+</html>

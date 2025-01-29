@@ -1,0 +1,103 @@
+
+{% extends 'includes/_base.html' %}
+{% block title %}جستجو محصول فروخته شده ({{ productSearchResult }}) — بلو{% endblock title %}
+
+{% block body %}
+    {% include 'includes/_alerts.html' %}
+    
+    <div class="container">
+        {% include 'includes/_aside_right.html' %}
+        
+        <aside class="aside-left">
+            {% include 'includes/_navbar.html' %}
+        
+            <div class="aside-left-container">
+                <div class="aside-left-container-header">
+                    <div>
+                        <h2>جستجو محصول فروخته شده</h2>
+                        <p>در این صفحه می توانید محصولات فروخته شده خود را جستجو و مشاهده کنید.</p>
+                    </div>
+                    <div>
+                        <a href="/products/"><li class="far fa-undo"></li> برگشت</a>
+                    </div>
+                </div>
+                <div class="aside-left-container-body" style="background-color: white; border-radius: 1rem; overflow: hidden; overflow-x: auto;">
+                    <div class="table-container">
+                        <div class="table-header-tool">
+                            <form action="/products/sale/search/" method="post" class="form-control-search">
+                                <span class="far fa-search"></span>
+                                <input type="search" name="productSearch" placeholder="جستجو بر اساس نام" autofocus value="{{ productSearchResult }}">
+                            </form>
+                        </div>
+                        <div class="table-header">
+                            <li>#</li>
+                            <li>سری و نام کالا</li>
+                            <li>تعداد کالا</li>
+                            <li>قیمت خرید</li>
+                            <li>قیمت کل</li>
+                            <li>تاریخ</li>
+                        </div>
+                        {% if searching | length >= 1 %}
+                            {% for readProduct in searching %}
+                                <div class="table-body" onclick="modalProducts{{ readProduct[0] }}_{{ readProduct[0] }}Func()">
+                                    <li>{{ readProduct[0] }}</li>
+                                    <li>#{{ readProduct[1] }} {{ readProduct[2] }}</li>
+                                    <li>{{ readProduct[3] }}</li>
+                                    <li>{{ readProduct[4] }} <span>ریال</span></li>
+                                    <li>{{ readProduct[5] }} <span>ریال</span></li>
+                                    <li dir="auto">{{ readProduct[6] }}</li>
+                                </div>
+                                <div class="modal-overlay" id="modalProducts{{ readProduct[0] }}_{{ readProduct[0] }}">
+                                    <a href="javascript:modalProducts{{ readProduct[0] }}_{{ readProduct[0] }}Func()"></a>
+                                    <div class="modal-right modal-right-products-custome">
+                                        <i class="modal-line" onclick="modalProducts{{ readProduct[0] }}_{{ readProduct[0] }}Func()"></i>
+                                        <div class="modal-header">
+                                            <h4>جزییات محصول</h4>
+                                            <span class="far fa-print btn glass-secondery" onclick="window.print()" title="چاپ یا PDF"></span>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div>
+                                                <h4>سری و نام کالا:</h4>
+                                                <p>#{{ readProduct[0] }} #{{ readProduct[1] }} {{ readProduct[2] }}</p>
+                                            </div>
+                                            <div>
+                                                <h4>تعداد کالا:</h4>
+                                                <p>{{ readProduct[3] }}</p>
+                                            </div>
+                                            <div>
+                                                <h4>قیمت خرید:</h4>
+                                                <p>{{ readProduct[4] }} <span>ریال</span></p>
+                                            </div>
+                                            <div>
+                                                <h4>قیمت کل:</h4>
+                                                <p>{{ readProduct[5] }} <span>ریال</span></p>
+                                            </div>
+                                            <div>
+                                                <h4>تاریخ:</h4>
+                                                <p>{{ readProduct[6] }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="/products/edit/{{ readProduct[0] }}/" class="link btn" style="color: #ffffff;"><span class="far fa-edit"></span> ویرایش محصول</a>
+                                            <a href="/products/sale/remove/{{ readProduct[0] }}/" class="link btn glass-secondery" style="color: #ff0000;"><span class="far fa-trash"></span> حذف محصول</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    // Modals Products
+                                    var modalProducts{{ readProduct[0] }}_{{ readProduct[0] }} = document.getElementById("modalProducts{{ readProduct[0] }}_{{ readProduct[0] }}");
+                                    function modalProducts{{ readProduct[0] }}_{{ readProduct[0] }}Func() {
+                                        modalProducts{{ readProduct[0] }}_{{ readProduct[0] }}.classList.toggle("modal-toggle");
+                                    }
+                                </script>
+                            {% endfor %}
+                        {% else %}
+                            <p style="padding: 1rem;">موردی یافت نشده است.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+{% endblock body %}

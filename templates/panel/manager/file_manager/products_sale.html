@@ -1,0 +1,42 @@
+
+{% extends 'includes/_base.html' %}
+{% block title %} مدیریت اطلاعات (محصولات فروخته شده) — بلو{% endblock title %}
+
+{% block body %}
+    {% include 'includes/_status_auth.html' %}
+    
+    <div class="" style="margin: 20px 0;">
+        <div class="table-wrapper">
+            <table class="alt">
+                <thead>
+                    <tr>
+                        <th>ردیف</th>
+                        <th>سری و نام کالا</th>
+                        <th>تعداد کالا</th>
+                        <th>قیمت خرید</th>
+                        <th>قیمت کل</th>
+                        <th>تاریخ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for products in readProducts %}
+                        <tr>
+                            <td>{{ products[0] }}</td>
+                            <td>#{{ products[1] }} {{ products[2] }}</td>
+                            <td>{{ products[3] }}</td>
+                            <td>{{ products[4] }}</td>
+                            <td>{{ products[5] }}</td>
+                            <td>{{ products[6] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        setTimeout(() => {
+            window.print();
+        }, 1500);
+    </script>
+{% endblock body %}

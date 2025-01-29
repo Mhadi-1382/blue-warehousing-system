@@ -1,0 +1,27 @@
+
+.navbar-toggle {
+    display: flex !important;
+}
+aside.aside-left .navbar {
+    @include display-between();
+    @include padding-default();
+
+    box-shadow: var(--box-shadow-lg);
+    transition: var(--transition-2s-ease);
+    background-color: var(--color-white);
+    position: fixed;
+    height: 65px;
+    width: 100%;
+    z-index: 2;
+    right: 0;
+    left: 0;
+    top: 0;
+
+    div, ul {
+        @include display-align-center();
+
+        span {
+            margin-left: 15px;
+        }
+    }
+}

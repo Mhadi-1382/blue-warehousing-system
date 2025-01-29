@@ -1,0 +1,124 @@
+
+@font-face {
+    font-family: 'DanaVF';
+    src: url(../fonts/DanaVF.ttf);
+}
+
+*,
+*::before,
+*::after {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+html {
+    text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+html, body, div, span, applet, object, iframe, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    vertical-align: baseline;
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, img {
+    display: block;
+}
+figure {
+    margin-right: auto;
+    margin-left: auto;
+}
+ul, li {
+    list-style: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 500;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px rgb(240, 240, 240) inset !important;
+    box-shadow: 0 0 0 30px rgb(240, 240, 240) inset !important;
+    -webkit-text-fill-color: #000 !important;
+}
+hr {
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+button {
+    font-family: var(--font-family);
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+    border: none;
+}
+a {
+    text-decoration: none;
+    color: var(--color-black);
+}
+a:hover {
+    color: var(--color-black);
+}
+::selection {
+    background-color: var(--color-soft-7);
+    color: var(--color-black);
+}
+@media (max-width: 749px) {
+    ::-webkit-scrollbar {
+        display: none;
+    }
+}
+@media (min-width: 750px) {
+    .modal::-webkit-scrollbar {
+        display: none;
+    }
+    ::-webkit-scrollbar {
+        height: 5px;
+        width: 5px;
+    }
+    ::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+        background-color: var(--color-dark-main);
+        border-radius: var(--border-radius-full);
+    }
+    ::-webkit-scrollbar-thumb:hover,
+    ::-webkit-scrollbar-thumb:active {
+        background-color: var(--color-silver);
+    }
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px rgb(255, 255, 255) inset !important;
+    box-shadow: 0 0 0 30px rgb(255, 255, 255) inset !important;
+    -webkit-text-fill-color: #000 !important;
+}
+textarea {
+    resize: vertical;
+}
+
+
+body {
+    font-family: var(--font-family);
+    background-color: #f7f8fa;
+    /* background-color: #fafbfc; */
+    line-height: var(--line-height);
+    font-size: var(--font-size-16);
+    color: var(--color-black);
+    padding: 0;
+    margin: 0;
+}

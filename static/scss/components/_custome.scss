@@ -1,0 +1,50 @@
+
+.modal-right-products-custome {
+    .modal-body {
+        div {
+            margin-bottom: 8px;
+            // font-size: 15px;
+        
+            h4 {
+                background-color: #f7f7f7;
+                padding: 0.2rem 0.6rem;
+            }
+            p {
+                padding: 0.2rem 0.6rem;
+            }
+        }
+    }
+    .modal-header span.far {
+        font-size: 15px;
+        padding: 0.6rem;
+        margin: 0;
+    }
+    .modal-footer {
+        border: none;
+        padding-top: 15px;
+        border-top: 2px solid #f7f7f7;
+    }
+    input:not(input[type="submit"]) {
+        font-family: var(--font-family);
+        transition: var(--transition-2s-ease);
+        margin: 10px 0 5px 0 !important;
+        outline: 1px solid transparent;
+        padding: 0 0.5rem !important;
+        border: none;
+        all: unset;
+
+        &:hover,
+        &:focus {
+            outline: 1px solid #eee;
+        }
+    }
+}
+
+.customize-toggle {
+    display: none !important;
+}
+
+#containerSale form .btn:hover {
+    background-color: transparent;
+    opacity: 0.6;
+}

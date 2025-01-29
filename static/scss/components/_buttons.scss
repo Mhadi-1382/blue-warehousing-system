@@ -1,0 +1,65 @@
+
+.btn {
+    @include display-center();
+
+    background-color: var(--background-btn-primary);
+    transition: var(--transition-2s-ease);
+    color: var(--color-white);
+    padding: 0.6rem 1rem;
+    border-radius: var(--border-radius-mmmd);
+    text-align: center;
+    cursor: pointer;
+    margin: 5px 0;
+
+    &:hover {
+        background-color: var(--background-btn-primary-hover);
+        transition: var(--transition-2s-ease);
+    }
+    .far {
+        margin-left: 8px;
+    }
+    &.btn-w-full {
+        width: 100%;
+    }
+    &.glass {
+        background-color: rgba(255, 255, 255, .5);
+        backdrop-filter: blur(5px);
+        
+        &:hover {
+            background-color: rgba(255, 255, 255, .3);
+        }
+    }
+    &.glass-secondery {
+        background-color: #f7f8fa;
+        border-radius: var(--border-radius-mmmd);
+        color: var(--color-silver);
+        
+        &:hover {
+            opacity: .7;
+        }
+    }
+    &.red {
+        background-color: var(--color-red);
+        color: var(--color-white) !important;
+        
+        &:hover {
+            background-color: rgb(255, 53, 53);
+        }
+    }
+    &.blue {
+        background-color: var(--color-blue);
+        color: var(--color-white) !important;
+        
+        &:hover {
+            background-color: rgb(53, 117, 255);
+        }
+    }
+    &.green {
+        background-color: var(--color-green);
+        color: var(--color-white) !important;
+        
+        &:hover {
+            background-color: rgb(37, 165, 73);
+        }
+    }
+}

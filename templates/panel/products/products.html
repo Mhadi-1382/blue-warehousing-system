@@ -1,0 +1,221 @@
+
+{% extends 'includes/_base.html' %}
+{% block title %}لیست محصولات — بلو{% endblock title %}
+
+{% block body %}
+    {% include 'includes/_alerts.html' %}
+    
+    <div class="container">
+        {% include 'includes/_aside_right.html' %}
+        
+        <aside class="aside-left">
+            {% include 'includes/_navbar.html' %}
+        
+            <div class="aside-left-container">
+                <div class="aside-left-container-header" style="margin-bottom: 20px;">
+                    <div>
+                        <h2>لیست محصولات</h2>
+                        <p>در این صفحه می توانید محصولات خود را مشاهده و مدیریت کنید.</p>
+                    </div>
+                    <div>
+                        <a href="/"><li class="far fa-undo"></li> برگشت</a>
+                    </div>
+                </div>
+                <div class="tab">
+                    <li class="tab-item-active" id="tabPhrchase" onclick="tabPhrchaseFunc();" style="color: #ff0000;">خرید شده</li>
+                    <li class="" id="tabSale" onclick="tabSaleFunc();" style="color: #0156d9;">فروخته شده</li>
+                </div>
+                <div class="aside-left-container-body" style="background-color: white; border-radius: 1rem; overflow: hidden; overflow-x: auto;" id="containerPhrchase">
+                    <div class="table-container">
+                        <div class="table-header-tool">
+                            <a href="/products/add/" class=""><li class="far fa-plus-circle"></li> ثبت محصول</a>
+                            <a href="/products/search/" class=""><li class="far fa-search"></li> جستجو محصول</a>
+                            <a href="javascript:void(0)" onclick="window.print()" class=""><li class="far fa-print"></li> چاپ یا PDF</a>
+                        </div>
+                        <div class="table-header">
+                            <li>#</li>
+                            <li>نام کالا</li>
+                            <li>تعداد کالا</li>
+                            <li>دسته بندی</li>
+                            <li>قیمت خرید</li>
+                            <li>قیمت کل</li>
+                            <li>تخفیف</li>
+                            <li>توضیحات</li>
+                            <li>تاریخ</li>
+                        </div>
+                        {% if curReadProductsPhrchase | length >= 1 %}
+                            {% for readProduct in curReadProductsPhrchase %}
+                                <div class="table-body" onclick="modalProducts{{ readProduct[0] }}Func()">
+                                    <li>{{ readProduct[0] }}</li>
+                                    <li>{{ readProduct[1] }}</li>
+                                    <li>{{ readProduct[2] }}</li>
+                                    <li>{{ readProduct[3] }}</li>
+                                    <li>{{ readProduct[4] }} <span>ریال</span></li>
+                                    <li>{{ readProduct[5] }} <span>ریال</span></li>
+                                    <li>{{ readProduct[6] }} <span>درصد</span></li>
+                                    <li>{{ readProduct[7] }}</li>
+                                    <li dir="auto">{{ readProduct[8] }}</li>
+                                </div>
+                                <div class="modal-overlay" id="modalProducts{{ readProduct[0] }}">
+                                    <a href="javascript:modalProducts{{ readProduct[0] }}Func()"></a>
+                                    <div class="modal-right modal-right-products-custome">
+                                        <i class="modal-line" onclick="modalProducts{{ readProduct[0] }}Func()"></i>
+                                        <div class="modal-header">
+                                            <h4>جزییات محصول</h4>
+                                            <span class="far fa-print btn glass-secondery" onclick="window.print()" title="چاپ یا PDF"></span>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div>
+                                                <h4>نام کالا:</h4>
+                                                <p>#{{ readProduct[0] }} {{ readProduct[1] }}</p>
+                                            </div>
+                                            <div>
+                                                <h4>تعداد کالا:</h4>
+                                                <p>{{ readProduct[2] }}</p>
+                                            </div>
+                                            <div>
+                                                <h4>دسته بندی:</h4>
+                                                <p>{{ readProduct[3] }}</p>
+                                            </div>
+                                            <div>
+                                                <h4>قیمت خرید:</h4>
+                                                <p>{{ readProduct[4] }} <span>ریال</span></p>
+                                            </div>
+                                            <div>
+                                                <h4>قیمت کل:</h4>
+                                                <p>{{ readProduct[5] }} <span>ریال</span></p>
+                                            </div>
+                                            <div>
+                                                <h4>تخفیف:</h4>
+                                                <p>{{ readProduct[6] }} <span>درصد</span></p>
+                                            </div>
+                                            <div>
+                                                <h4>توضیحات:</h4>
+                                                <p>{{ readProduct[7] }}</p>
+                                            </div>
+                                            <div>
+                                                <h4>تاریخ:</h4>
+                                                <p>{{ readProduct[8] }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="/products/edit/{{ readProduct[0] }}/" class="link btn" style="color: #ffffff;"><span class="far fa-edit"></span> ویرایش محصول</a>
+                                            <a href="/products/remove/{{ readProduct[0] }}/" class="link btn glass-secondery" style="color: #ff0000;"><span class="far fa-trash"></span> حذف محصول</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    // Modals Products
+                                    var modalProducts{{ readProduct[0] }} = document.getElementById("modalProducts{{ readProduct[0] }}");
+                                    function modalProducts{{ readProduct[0] }}Func() {
+                                        modalProducts{{ readProduct[0] }}.classList.toggle("modal-toggle");
+                                    }
+                                </script>
+                            {% endfor %}
+                        {% else %}
+                            <p style="padding: 1rem;">موردی ثبت نشده است.</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="aside-left-container-body" style="background-color: white; border-radius: 1rem; overflow: hidden; overflow-x: auto; display: none;" id="containerSale">
+                    <div class="table-container">
+                        <div class="table-header-tool">
+                            <a href="/products/add/" class=""><li class="far fa-plus-circle"></li> ثبت محصول</a>
+                            <a href="/products/sale/search/" class=""><li class="far fa-search"></li> جستجو محصول</a>
+                            <a href="javascript:void(0)" onclick="window.print()" class=""><li class="far fa-print"></li> چاپ یا PDF</a>
+                        </div>
+                        <div class="table-header">
+                            <li>#</li>
+                            <li>سری و نام کالا</li>
+                            <li>تعداد کالا</li>
+                            <li>قیمت خرید</li>
+                            <li>قیمت کل</li>
+                            <li>تاریخ</li>
+                        </div>
+                        {% if curReadProductsSale | length >= 1 %}
+                            {% for readProduct in curReadProductsSale %}
+                                <div class="table-body" onclick="modalProducts{{ readProduct[0] }}_{{ readProduct[0] }}Func()">
+                                    <li>{{ readProduct[0] }}</li>
+                                    <li>#{{ readProduct[1] }} {{ readProduct[2] }}</li>
+                                    <li>{{ readProduct[3] }}</li>
+                                    <li>{{ readProduct[4] }} <span>ریال</span></li>
+                                    <li>{{ readProduct[5] }} <span>ریال</span></li>
+                                    <li dir="auto">{{ readProduct[6] }}</li>
+                                </div>
+                                <div class="modal-overlay" id="modalProducts{{ readProduct[0] }}_{{ readProduct[0] }}">
+                                    <a href="javascript:modalProducts{{ readProduct[0] }}_{{ readProduct[0] }}Func()"></a>
+                                    <div class="modal-right modal-right-products-custome">
+                                        <i class="modal-line" onclick="modalProducts{{ readProduct[0] }}_{{ readProduct[0] }}Func()"></i>
+                                        <div class="modal-header">
+                                            <h4>جزییات محصول</h4>
+                                            <span class="far fa-print btn glass-secondery" onclick="window.print()" title="چاپ یا PDF"></span>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div>
+                                                <h4>سری و نام کالا:</h4>
+                                                <p>#{{ readProduct[0] }} #{{ readProduct[1] }} {{ readProduct[2] }}</p>
+                                            </div>
+                                            <div>
+                                                <h4>تعداد کالا:</h4>
+                                                <p>{{ readProduct[3] }}</p>
+                                            </div>
+                                            <div>
+                                                <h4>قیمت خرید:</h4>
+                                                <p>{{ readProduct[4] }} <span>ریال</span></p>
+                                            </div>
+                                            <div>
+                                                <h4>قیمت کل:</h4>
+                                                <p>{{ readProduct[5] }} <span>ریال</span></p>
+                                            </div>
+                                            <div>
+                                                <h4>تاریخ:</h4>
+                                                <p>{{ readProduct[6] }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="/products/sale/remove/{{ readProduct[0] }}/" class="link btn glass-secondery" style="color: #ff0000;"><span class="far fa-trash"></span> حذف محصول</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    // Modals Products
+                                    var modalProducts{{ readProduct[0] }}_{{ readProduct[0] }} = document.getElementById("modalProducts{{ readProduct[0] }}_{{ readProduct[0] }}");
+                                    function modalProducts{{ readProduct[0] }}_{{ readProduct[0] }}Func() {
+                                        modalProducts{{ readProduct[0] }}_{{ readProduct[0] }}.classList.toggle("modal-toggle");
+                                    }
+                                </script>
+                            {% endfor %}
+                        {% else %}
+                            <p style="padding: 1rem;">موردی ثبت نشده است.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        // TAB
+        var containerPhrchase = document.getElementById("containerPhrchase");
+        var containerSale = document.getElementById("containerSale");
+        var tabPhrchase = document.getElementById("tabPhrchase");
+        var tabSale = document.getElementById("tabSale");
+
+        function tabPhrchaseFunc() {
+            containerPhrchase.classList.remove("tab-hide-toggle");
+            containerSale.classList.remove("tab-show-toggle");
+
+            tabPhrchase.classList.add("tab-item-active");
+            tabSale.classList.remove("tab-item-active");
+        }
+        function tabSaleFunc() {
+            containerPhrchase.classList.add("tab-hide-toggle");
+            containerSale.classList.add("tab-show-toggle");
+
+            tabPhrchase.classList.remove("tab-item-active");
+            tabSale.classList.add("tab-item-active");
+        }
+    </script>
+{% endblock body %}

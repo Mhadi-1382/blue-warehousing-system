@@ -1,0 +1,30 @@
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="alert-container">
+            {% for category, message in messages %}
+                {% if category == "error" %}
+                    <div class="alert" id="alertError">
+                        <li class="far fa-times-circle"></li>
+                        <span>{{ message }}</span>
+                    </div>
+                {% elif category == "info" or category == "success" %}
+                    <div class="alert" id="alertInfo">
+                        <li class="far fa-check-circle"></li>
+                        <span>{{ message }}</span>
+                    </div>
+                {% elif category == "warning" %}
+                    <div class="alert" id="alertWarning">
+                        <li class="far fa-exclamation-circle"></li>
+                        <span>{{ message }}</span>
+                    </div>
+                {% elif category == "message" %}
+                    <div class="alert" id="alertMessage">
+                        <li class="far fa-info-circle"></li>
+                        <span>{{ message }}</span>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}

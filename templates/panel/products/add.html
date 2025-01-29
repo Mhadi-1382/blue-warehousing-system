@@ -1,0 +1,228 @@
+
+{% extends 'includes/_base.html' %}
+{% block title %}ثبت محصول — بلو{% endblock title %}
+
+{% block body %}
+    {% include 'includes/_alerts.html' %}
+    
+    <div class="container">
+        {% include 'includes/_aside_right.html' %}
+        
+        <aside class="aside-left">
+            {% include 'includes/_navbar.html' %}
+        
+            <div class="aside-left-container">
+                <div class="aside-left-container-header" style="margin-bottom: 20px;">
+                    <div>
+                        <h2>ثبت محصول</h2>
+                        <p>در این صفحه می توانید محصول خود را ثبت کنید.</p>
+                    </div>
+                    <div>
+                        <a href="/products/"><li class="far fa-undo"></li> برگشت</a>
+                    </div>
+                </div>
+                <div class="tab">
+                    <li class="tab-item-active" id="tabPhrchase" onclick="tabPhrchaseFunc();" style="color: #ff0000;">خرید</li>
+                    <li class="" id="tabSale" onclick="tabSaleFunc();" style="color: #0156d9;">فروش</li>
+                </div>
+                <div class="aside-left-container-body" style="background-color: white; border-radius: 1rem; padding: 1.2rem;" id="containerPhrchase">
+                    <form action="/products/add/" method="post" class="form-control">
+                        <div class="form-control-group">
+                            <div>
+                                <label for="productName">نام کالا *</label>
+                                <input type="text" name="productName" id="productName" required maxlength="500">
+                            </div>
+                            <div>
+                                <label for="productNumber">تعداد کالا *</label>
+                                <input type="number" name="productNumber" id="productNumber" value="1" required min="0">
+                            </div>
+                            <div>
+                                <label for="productCategory">دسته بندی</label>
+                                <input list="productCategoryList" name="productCategory" id="productCategory" maxlength="300">
+                                <datalist id="productCategoryList">
+                                    {% for ReadProductCategory in curReadProductsCategory %}
+                                        <option value="{{ ReadProductCategory[0] }}"></option>
+                                    {% endfor %}
+                                </datalist>
+                            </div>
+                        </div>
+
+                        <div class="form-control-group">
+                            <div>
+                                <label for="productPurchasePrice">قیمت خرید (ریال) *</label>
+                                <input type="number" name="productPurchasePrice" id="productPurchasePrice" required min="0">
+                            </div>
+                            <div>
+                                <label for="productDiscount">تخفیف (درصد)</label>
+                                <input type="number" name="productDiscount" id="productDiscount" value="0" max="100" min="0">
+                            </div>
+                        </div>
+
+                        <div class="">
+                            <label for="productDescription">توضیحات</label>
+                            <textarea name="productDescription" id="productDescription" rows="3"></textarea>
+                        </div>
+                        <div>
+                            <label for="productDate">تاریخ</label>
+                            <input type="text" name="productDate" id="productDate" value="{{ dateNow }}" maxlength="19" dir="ltr">
+                        </div>
+
+                        <div class="form-control-result">
+                            <h3>جزییات نهایی</h3>
+                            
+                            <li>قیمت کل: <input type="hidden" name="productTotalPrice" id="productTotalPriceInput" style="all: unset;"> <span id="productTotalPrice"></span></li>
+                            <li>تعداد: <span id="productTotalNumber"></span></li>
+                            <li>تخفیف: <span id="productDiscountApply"></span></li>
+                        </div>
+
+                        <input type="submit" value="ثبت" aria-placeholder="ثبت" style="width: 130px; margin-top: 10px;">
+                    </form>
+                </div>
+                <div class="aside-left-container-body" style="background-color: white; border-radius: 1rem; padding: 1.2rem; overflow-x: scroll; display: none;" id="containerSale">
+                    <div class="table-container">
+                        <div class="table-header" style="border-radius: 1rem;">
+                            <li>نام کالا</li>
+                            <li>تعداد کالا</li>
+                            <li>قیمت خرید</li>
+                            <li>قیمت کل</li>
+                            <li style="width: 170px;">تعداد و قیمت کالا برای فروش</li>
+                        </div>
+                        {% if curReadProducts | length >= 1 %}
+                            {% for readProduct in curReadProducts %}
+                                <div class="table-body" style="cursor: auto;">
+                                    <li>{{ readProduct[1] }}</li>
+                                    {% if readProduct[2][0] == "-" %}
+                                        <li>{{ readProduct[2][1::] }}</li>
+                                    {% else %}
+                                        <li>{{ readProduct[2] }}</li>
+                                    {% endif %}
+                                    <li>{{ readProduct[4] }} <span>ریال</span> <input type="hidden" id="readProductPrice{{ readProduct[4] }}" value="{{ readProduct[4] }}" aria-placeholder="{{ readProduct[4] }}"></li>
+                                    <li>{{ readProduct[5] }} <span>ریال</span></li>
+                                    <form action="/products/sale/add/" method="post" class="form-control" style="width: 170px;">
+                                        {% if readProduct[2][0] == "-" %}
+                                            <label for="productNumberPhrchase{{ readProduct[2][1::] }}">از {{ readProduct[2][1::] }} تا</label>
+                                            <input type="number" name="productNumber" id="productNumberPhrchase{{ readProduct[2][1::] }}" placeholder="تعداد" aria-placeholder="تعداد" max="{{ readProduct[2][1::] }}" min="0" style="height: 30px; padding: 0.8rem;" required>
+                                            <input type="hidden" name="productTotalNumber" value="{{ readProduct[2][1::] }}" aria-placeholder="{{ readProduct[2][1::] }}">
+                                            <input type="hidden" name="productPrice" value="{{ readProduct[4] }}" aria-placeholder="{{ readProduct[4] }}">
+                                            <input type="hidden" name="productSeries" value="{{ readProduct[0] }}" aria-placeholder="{{ readProduct[0] }}">
+                                            <input type="hidden" name="productName" value="{{ readProduct[1] }}" aria-placeholder="{{ readProduct[1] }}">
+                                            <input type="number" name="productTotalPrice" id="productTotalPricePhrchase{{ readProduct[2][1::] }}" placeholder="قیمت کل" aria-placeholder="قیمت کل" min="0" style="height: 30px; padding: 0.8rem;" required>
+                                        {% else %}
+                                            <label for="productNumberPhrchase{{ readProduct[2] }}">از {{ readProduct[2] }} تا</label>
+                                            <input type="number" name="productNumber" id="productNumberPhrchase{{ readProduct[2] }}" placeholder="تعداد" aria-placeholder="تعداد" max="{{ readProduct[2] }}" min="0" style="height: 30px; padding: 0.8rem;" required>
+                                            <input type="hidden" name="productTotalNumber" value="{{ readProduct[2] }}" aria-placeholder="{{ readProduct[2] }}">
+                                            <input type="hidden" name="productPrice" value="{{ readProduct[4] }}" aria-placeholder="{{ readProduct[4] }}">
+                                            <input type="hidden" name="productSeries" value="{{ readProduct[0] }}" aria-placeholder="{{ readProduct[0] }}">
+                                            <input type="hidden" name="productName" value="{{ readProduct[1] }}" aria-placeholder="{{ readProduct[1] }}">
+                                            <input type="number" name="productTotalPrice" id="productTotalPricePhrchase{{ readProduct[2] }}" placeholder="قیمت کل" aria-placeholder="قیمت کل" min="0" style="height: 30px; padding: 0.8rem;" required>
+                                        {% endif %}
+                                        <input type="submit" value="فروش" aria-placeholder="فروش" class="link btn glass-secondery" style="color: #0051ff; width: 65px;">
+                                    </form>
+                                </div>
+
+                                <script>
+                                    var readProductPrice{{ readProduct[2] }} = document.getElementById("readProductPrice{{ readProduct[4] }}");
+                                    var productNumberPhrchase{{ readProduct[2] }} = document.getElementById("productNumberPhrchase{{ readProduct[2] }}");
+                                    var productTotalPricePhrchase{{ readProduct[2] }} = document.getElementById("productTotalPricePhrchase{{ readProduct[2] }}");
+
+                                    function calcTotalPricePhrchase{{ readProduct[2] }}() {
+                                        if (productNumberPhrchase{{ readProduct[2] }}.value >= 1) {
+                                            var calc = (productNumberPhrchase{{ readProduct[2] }}.value * readProductPrice{{ readProduct[2] }}.value);
+                                            productTotalPricePhrchase{{ readProduct[2] }}.value = calc;
+                                        } else if (productNumberPhrchase{{ readProduct[2] }}.value == 0) {
+                                            productTotalPricePhrchase{{ readProduct[2] }}.value = 0;
+                                        }
+                                    }
+                                    productNumberPhrchase{{ readProduct[2] }}.onchange = function() {
+                                        calcTotalPricePhrchase{{ readProduct[2] }}();
+                                    }
+                                    productTotalPricePhrchase{{ readProduct[2] }}.onchange = function() {
+                                        calcTotalPricePhrchase{{ readProduct[2] }}();
+                                    }
+                                </script>
+                                <script>
+                                    var readProductPrice{{ readProduct[2][1::] }} = document.getElementById("readProductPrice{{ readProduct[4] }}");
+                                    var productNumberPhrchase{{ readProduct[2][1::] }} = document.getElementById("productNumberPhrchase{{ readProduct[2][1::] }}");
+                                    var productTotalPricePhrchase{{ readProduct[2][1::] }} = document.getElementById("productTotalPricePhrchase{{ readProduct[2][1::] }}");
+
+                                    function calcTotalPricePhrchase{{ readProduct[2][1::] }}() {
+                                        if (productNumberPhrchase{{ readProduct[2][1::] }}.value >= 1) {
+                                            var calc = (productNumberPhrchase{{ readProduct[2][1::] }}.value * readProductPrice{{ readProduct[2][1::] }}.value);
+                                            productTotalPricePhrchase{{ readProduct[2][1::] }}.value = calc;
+                                        } else if (productNumberPhrchase{{ readProduct[2][1::] }}.value == 0) {
+                                            productTotalPricePhrchase{{ readProduct[2][1::] }}.value = 0;
+                                        }
+                                    }
+                                    productNumberPhrchase{{ readProduct[2][1::] }}.onchange = function() {
+                                        calcTotalPricePhrchase{{ readProduct[2][1::] }}();
+                                    }
+                                    productNumberPhrchase{{ readProduct[2][1::] }}.onchange = function() {
+                                        calcTotalPricePhrchase{{ readProduct[2][1::] }}();
+                                    }
+                                </script>
+                            {% endfor %}
+                        {% else %}
+                            <p style="padding: 1rem 0 0 0;">موردی ثبت نشده است.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        let productPurchasePrice = document.getElementById("productPurchasePrice");
+        let productNumber = document.getElementById("productNumber");
+        let productDiscount = document.getElementById("productDiscount");
+        let productTotalPrice = document.getElementById("productTotalPrice");
+        let productTotalNumber = document.getElementById("productTotalNumber");
+        let productTotalPriceInput = document.getElementById("productTotalPriceInput");
+        let productDiscountApply = document.getElementById("productDiscountApply");
+
+        function calcTotalPrice() {
+            productTotalNumber.innerHTML = productNumber.value + " <span style='font-size: 13px'>عدد</span>";
+            productDiscountApply.innerHTML = productDiscount.value + " <span style='font-size: 13px'>درصد</span>";
+
+            if (productNumber.value >= 1) {
+                let calc = (productPurchasePrice.value * productNumber.value) - (productTotalPriceInput.value * productDiscount.value / 100);
+                productTotalPrice.innerHTML = calc + " <span style='font-size: 13px'>ریال</span>";
+                productTotalPriceInput.value = calc;
+            } else if (productNumber.value == 0) {
+                productTotalPrice.innerHTML = 0;
+            } else {
+                productTotalPrice.innerHTML = productPurchasePrice.value + " <span style='font-size: 13px'>ریال</span>";
+                productTotalPriceInput.value = productPurchasePrice.value;
+            }
+        }
+        productPurchasePrice.onchange = function() {
+            calcTotalPrice();
+        }
+        productNumber.onchange = function() {
+            calcTotalPrice();
+        }
+        productDiscount.onchange = function() {
+            calcTotalPrice();
+        }
+
+        // TAB
+        var containerPhrchase = document.getElementById("containerPhrchase");
+        var containerSale = document.getElementById("containerSale");
+        var tabPhrchase = document.getElementById("tabPhrchase");
+        var tabSale = document.getElementById("tabSale");
+
+        function tabPhrchaseFunc() {
+            containerPhrchase.classList.remove("tab-hide-toggle");
+            containerSale.classList.remove("tab-show-toggle");
+
+            tabPhrchase.classList.add("tab-item-active");
+            tabSale.classList.remove("tab-item-active");
+        }
+        function tabSaleFunc() {
+            containerPhrchase.classList.add("tab-hide-toggle");
+            containerSale.classList.add("tab-show-toggle");
+
+            tabPhrchase.classList.remove("tab-item-active");
+            tabSale.classList.add("tab-item-active");
+        }
+    </script>
+{% endblock body %}

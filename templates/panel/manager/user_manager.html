@@ -1,0 +1,123 @@
+
+{% extends 'includes/_base.html' %}
+{% block title %}مدیریت کاربران — بلو{% endblock title %}
+
+{% block body %}
+    {% include 'includes/_alerts.html' %}
+
+    <div class="modal-overlay" id="modalAddUserManager">
+        <a href="javascript:modalAddUserManagerFunc()"></a>
+        <div class="modal">
+            <i class="modal-line" onclick="modalAddUserManagerFunc()"></i>
+            <div class="modal-header">
+                <h4>افزودن کاربر جدید</h4>
+                <p>کاربر جدید خود را اضافه کنید.</p>
+            </div>
+            <div class="modal-body">
+                <form action="/user_manager/add/" method="post" class="form-control">
+                    <input type="text" name="username" placeholder="نام و نام خانوادگی" aria-placeholder="نام و نام خانوادگی" required>
+                    <input type="email" name="email" placeholder="ایمیل" aria-placeholder="ایمیل" required>
+                    <input type="tel" name="tel" dir="rtl" placeholder="تلفن" aria-placeholder="تلفن" required>
+                    <input type="text" name="password" placeholder="رمز عبور" aria-placeholder="رمز عبور" required>
+                    <input type="submit" value="افزودن کاربر" aria-placeholder="افزودن کاربر">
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        {% include 'includes/_aside_right.html' %}
+        
+        <aside class="aside-left">
+            {% include 'includes/_navbar.html' %}
+        
+            <div class="aside-left-container">
+                <div class="aside-left-container-header">
+                    <div>
+                        <h2>مدیریت کاربران</h2>
+                        <p>در این صفحه می توانید اطلاعات کاربران را مشاهده کنید.</p>
+                    </div>
+                    <div>
+                        <a href="/"><li class="far fa-undo"></li> برگشت</a>
+                    </div>
+                </div>
+                <div class="aside-left-container-body" style="background-color: white; border-radius: 1rem; overflow: hidden; overflow-x: auto;">
+                    <div class="table-container">
+                        <div class="table-header-tool">
+                            <a href="javascript:modalAddUserManagerFunc()" class=""><li class="far fa-plus-circle"></li> کاربر جدید</a>
+                            <a href="javascript:void(0)" onclick="window.print()" class=""><li class="far fa-print"></li> چاپ یا PDF</a>
+                        </div>
+                        <div class="table-header">
+                            <li>#</li>
+                            <li>نام و نام خانوادگی</li>
+                            <li>ایمیل</li>
+                            <li>تلفن</li>
+                            <li>رمز عبور</li>
+                            <li>تاریخ</li>
+                        </div>
+                        {% if curReadUsers | length >= 1 %}
+                            {% for readUser in curReadUsers %}
+                                <div class="table-body" onclick="modalUsers{{ readUser[0] }}Func()">
+                                    <li>{{ readUser[0] }}</li>
+                                    <li>{{ readUser[1] }}</li>
+                                    <li>{{ readUser[2] }}</li>
+                                    <li>{{ readUser[3] }}</li>
+                                    <li>{{ readUser[4] }}</li>
+                                    <li dir="auto">{{ readUser[5] }}</li>
+                                </div>
+                                <div class="modal-overlay" id="modalUsers{{ readUser[0] }}">
+                                    <a href="javascript:modalUsers{{ readUser[0] }}Func()"></a>
+                                    <div class="modal-right modal-right-products-custome">
+                                        <i class="modal-line" onclick="modalUsers{{ readUser[0] }}Func()"></i>
+                                        <div class="modal-header">
+                                            <h4>مشخصات کاربر</h4>
+                                            <span class="far fa-print btn glass-secondery" onclick="window.print()" title="چاپ یا PDF"></span>
+                                        </div>
+                                        <form action="/user_manager/edit/{{ readUser[0] }}/" method="post">
+                                            <div class="modal-body">
+                                                <div>
+                                                    <h4>نام و نام خانوادگی:</h4>
+                                                    <input type="text" name="username" placeholder="نام و نام خانوادگی" value="{{ readUser[1] }}">
+                                                </div>
+                                                <div>
+                                                    <h4>ایمیل:</h4>
+                                                    <input type="email" name="email" placeholder="ایمیل" value="{{ readUser[2] }}">
+                                                </div>
+                                                <div>
+                                                    <h4>تلفن:</h4>
+                                                    <input type="tel" name="tel" placeholder="تلفن" value="{{ readUser[3] }}" dir="rtl">
+                                                </div>
+                                                <div>
+                                                    <h4>رمز عبور:</h4>
+                                                    <input type="text" name="password" placeholder="رمز عبور" value="{{ readUser[4] }}">
+                                                </div>
+                                                <div>
+                                                    <h4>تاریخ:</h4>
+                                                    <p style="margin-top: 5px;">{{ readUser[5] }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <input type="submit" class="link btn" style="color: #ffffff;" value="ثبت ویرایش">
+                                                <a href="/user_manager/remove/{{ readUser[0] }}/" class="link btn glass-secondery" style="color: #ff0000;"><span class="far fa-trash"></span> حذف کاربر</a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    // Modals Users
+                                    var modalUsers{{ readUser[0] }} = document.getElementById("modalUsers{{ readUser[0] }}");
+                                    function modalUsers{{ readUser[0] }}Func() {
+                                        modalUsers{{ readUser[0] }}.classList.toggle("modal-toggle");
+                                    }
+                                </script>
+                            {% endfor %}
+                        {% else %}
+                            <p style="padding: 1rem;">موردی ثبت نشده است.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+{% endblock body %}

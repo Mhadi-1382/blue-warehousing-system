@@ -1,0 +1,79 @@
+
+{% extends 'includes/_base.html' %}
+{% block title %}گزارشات — بلو{% endblock title %}
+
+{% block body %}
+    {% include 'includes/_alerts.html' %}
+    
+    <div class="container">
+        {% include 'includes/_aside_right.html' %}
+        
+        <aside class="aside-left">
+            {% include 'includes/_navbar.html' %}
+        
+            <div class="aside-left-container">
+                <div class="aside-left-container-header">
+                    <div>
+                        <h2>گزارشات</h2>
+                        <p>در این صفحه می توانید گزارشی از خرید و فروش و ... را مشاهده کنید.</p>
+                    </div>
+                    <div>
+                        <a href="/"><li class="far fa-undo"></li> برگشت</a>
+                    </div>
+                </div>
+                <div class="aside-left-container-body">
+                    <div class="aside-left-container-body-reports-card">
+                        <details open>
+                            <span class="far fa-print btn glass-secondery" onclick="window.print()" title="چاپ یا PDF"></span>
+                            <summary><h3>گزارش خرید</h3> <span class="far fa-sort-desc"></span></summary>
+
+                            <ul class="aside-left-container-body-reports-card-header">
+                                <li>نوع صورت</li>
+                                <li>مبلغ (ریال)</li>
+                            </ul>
+                            {% if curReadProducts | length >= 1 %}
+                                {% for readProducts in curReadProducts %}
+                                    <ul class="aside-left-container-body-reports-card-body red">
+                                        <li>{{ readProducts[1] }}</li>
+                                        <li>{{ readProducts[5] }} <span style="font-size: 14px;">ریال</span></li>
+                                    </ul>
+                                {% endfor %}
+                                <ul class="aside-left-container-body-reports-card-footer">
+                                    <li>مجموع</li>
+                                    <li>{{ sumTotalPrice | sum }} <span style="font-size: 14px;">ریال</span></li>
+                                </ul>
+                            {% else %}
+                                <p style="padding: 1rem;">موردی ثبت نشده است.</p>
+                            {% endif %}
+                        </details>
+                    </div>
+                    <div class="aside-left-container-body-reports-card">
+                        <details open>
+                            <span class="far fa-print btn glass-secondery" onclick="window.print()" title="چاپ یا PDF"></span>
+                            <summary><h3>گزارش فروش</h3> <span class="far fa-sort-desc"></span></summary>
+
+                            <ul class="aside-left-container-body-reports-card-header">
+                                <li>نوع صورت</li>
+                                <li>مبلغ (ریال)</li>
+                            </ul>
+                            {% if curReadProductsSale | length >= 1 %}
+                                {% for readProducts in curReadProductsSale %}
+                                    <ul class="aside-left-container-body-reports-card-body blue">
+                                        <li>{{ readProducts[2] }}</li>
+                                        <li>{{ readProducts[5] }} <span style="font-size: 14px;">ریال</span></li>
+                                    </ul>
+                                {% endfor %}
+                                <ul class="aside-left-container-body-reports-card-footer">
+                                    <li>مجموع</li>
+                                    <li>{{ sumTotalPriceSale | sum }} <span style="font-size: 14px;">ریال</span></li>
+                                </ul>
+                            {% else %}
+                                <p style="padding: 1rem;">موردی ثبت نشده است.</p>
+                            {% endif %}
+                        </details>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+{% endblock body %}

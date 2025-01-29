@@ -1,0 +1,55 @@
+
+{% extends 'includes/_base.html' %}
+{% block title %} مدیریت اطلاعات — بلو{% endblock title %}
+
+{% block body %}
+    {% include 'includes/_alerts.html' %}
+    
+    <div class="container">
+        {% include 'includes/_aside_right.html' %}
+        
+        <aside class="aside-left">
+            {% include 'includes/_navbar.html' %}
+        
+            <div class="aside-left-container">
+                <div class="aside-left-container-header">
+                    <div>
+                        <h2>مدیریت اطلاعات</h2>
+                        <p>در این صفحه می توانید اطلاعات بخش های مختلف را بصورت جدول و PDF مشاهده کنید.</p>
+                    </div>
+                    <div>
+                        <a href="/"><li class="far fa-undo"></li> برگشت</a>
+                    </div>
+                </div>
+                <div class="aside-left-container-body">
+                    <div class="aside-left-container-body-file-manager-grid">
+                        <a href="/file_manager/products/phrchase/">
+                            <div class="aside-left-container-body-file-manager-card">
+                                <h4>محصولات خریداری شده</h4>
+                            </div>
+                            <div class="aside-left-container-body-file-manager-card-footer">
+                                <p dir="auto"><span>{{ lenProductsPhrchase }}</span> Record</p>
+                            </div>
+                        </a>
+                        <a href="/file_manager/products/sale/">
+                            <div class="aside-left-container-body-file-manager-card">
+                                <h4>محصولات فروخته شده</h4>
+                            </div>
+                            <div class="aside-left-container-body-file-manager-card-footer">
+                                <p dir="auto"><span>{{ lenProductsSale }}</span> Record</p>
+                            </div>
+                        </a>
+                        <a href="/file_manager/users/">
+                            <div class="aside-left-container-body-file-manager-card">
+                                <h4>کاربران</h4>
+                            </div>
+                            <div class="aside-left-container-body-file-manager-card-footer">
+                                <p dir="auto"><span>{{ lenUsers }}</span> Record</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+{% endblock body %}

@@ -1,0 +1,62 @@
+
+aside.aside-right .sidebar {
+    .sidebar-logo-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .sidebar-logo {
+            @include display-center();
+            margin-bottom: 1.5rem;
+            width: 90px;
+        }
+        li {
+            @include display-center();
+
+            background-color: #fafbfc;
+            margin-bottom: 1.5rem;
+            border-radius: var(--border-radius-mmmd);
+            cursor: pointer;
+            color: var(--color-silver);
+            font-size: 16px;
+            height: 35px;
+            width: 35px;
+        }
+    }
+    nav {
+        @include display-between();
+        margin: 0.5rem 0 1rem 0;
+
+        ul {
+            width: 100%;
+        
+            img, svg, .far {
+                width: 1rem;
+            }
+            a li, label li {
+                padding: 0.5rem 1rem;
+                border-radius: var(--border-radius-mmmd);
+                margin: 5px 0;
+                display: flex;
+                align-items: center;
+                
+                &:hover {
+                    background-color: #fafbfc;
+                }
+                img, svg, .far {
+                    margin-left: 12px;
+                }
+                svg path {
+                    fill: var(--color-black);
+                }
+            }
+            label li {
+                cursor: pointer;
+
+                &:focus-within {
+                    background-color: #fafbfc;
+                }
+            }
+        }
+    }
+}

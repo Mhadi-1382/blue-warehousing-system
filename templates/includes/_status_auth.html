@@ -1,0 +1,16 @@
+
+{% if session["username"] or session["email"] or session["password"] %}
+{% else %}
+    <div class="alert-container" style="height: 100%; top: 0; backdrop-filter: blur(6px);">
+        <div class="alert" id="" style="animation: none;">
+            <li class="far fa-info-circle"></li>
+            <span>لطفا وارد حساب خود شوید. <a href="/signin/" class="link blue">ورود به پنل</a></span>
+        </div>
+    </div>
+
+    <script>
+        setTimeout(() => {
+            window.location.href = "/signin/";
+        }, 15000);
+    </script>
+{% endif %}

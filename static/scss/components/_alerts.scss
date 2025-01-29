@@ -1,0 +1,53 @@
+
+.alert-toggle {
+    display: none !important;
+}
+.alert-container {
+    @include display-center();
+
+    flex-direction: column;
+    position: fixed;
+    z-index: 10001;
+    width: 100%;
+    top: 30px;
+
+    .alert {
+        @include display-align-center();
+
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 0.0625rem 0.1875rem, rgba(0, 0, 0, 0.05) 0px 1.75rem 1.4375rem -0.4375rem, rgba(0, 0, 0, 0.04) 0px 0.75rem 0.75rem -0.4375rem;
+        animation: a-push-bottom 0.2s ease-in;
+        transition: var(--transition-2s-ease);
+        background-color: rgba(255, 255, 255, 0.850);
+        backdrop-filter: blur(4px);
+        margin: 0 10px 10px 10px;
+        border-radius: var(--border-radius-full);
+        padding: 0.8rem 1.5rem;
+        width: fit-content;
+
+        li {
+            @include display-center();
+
+            border-radius: var(--border-radius-full);
+            margin-left: 10px;
+            font-size: var(--font-size-18);
+            height: 30px;
+            width: 30px;
+        }
+        li.fa-check-circle {
+            background-color: rgb(238, 251, 239);
+            color: rgb(72, 189, 105);
+        }
+        li.fa-times-circle {
+            background-color: rgb(251, 243, 238);
+            color: rgb(189, 72, 72);
+        }
+        li.fa-exclamation-circle {
+            background-color: rgb(251, 253, 221);
+            color: rgb(230, 233, 86);
+        }
+        li.fa-info-circle {
+            background-color: rgb(238, 243, 251);
+            color: rgb(72, 113, 189);
+        }
+    }
+}
