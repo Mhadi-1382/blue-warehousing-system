@@ -3,7 +3,7 @@
 BLUE (Warehousing System) App
 Created on date: 1403/06/20
 
-View source code on GitHub: https://github.com/Mhadi-1382/
+View source code on GitHub: https://github.com/Mhadi-1382/blue-warehousing-system/
 """
 
 from flask import Flask, render_template, redirect, flash, request, url_for, session
